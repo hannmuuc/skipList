@@ -1,0 +1,6 @@
+.DS_store
+.python-version
+*.pth
+result_*.txt
+
+__pycache__/
