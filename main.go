@@ -1,23 +1,32 @@
 package main
 
+import "fmt"
+
+type test1 struct {
+	v int
+}
+
+func (t test1) Compare(other test1) int {
+	return t.v - other.v
+}
+
+func (t test1) Identity() test1 {
+	return test1{v: 0}
+}
+func (t test1) Op(other test1) test1 {
+	return test1{v: t.v + other.v}
+}
+
+func (t test1) toInt() int {
+	return t.v
+}
+
 // 测试主函数
 func main() {
-	sl := NewSkipList()
 
-	data := []SkipListDataNode{
-		NewSkipListDataNode(1, 2, 100),
-		NewSkipListDataNode(3, 1, 200),
-		NewSkipListDataNode(2, 5, 300),
-		NewSkipListDataNode(1, 1, 400),
-		NewSkipListDataNode(3, 2, 500),
-	}
-	levelList := []int{0, 0, 3, 3, 3}
+	skipListAbstract := NewSkipListAbstract[test1, int, test1]()
+	skipList := NewSkipList()
 
-	for i, v := range data {
-		sl.InsertWithLevel(&v, levelList[i])
-	}
-	sl.Delete(&data[0])
-
-	sl.FindTopK(1)
+	fmt.Printf("skipListAbstract: %+v skipList: %+v", skipListAbstract, skipList)
 
 }
